@@ -1,39 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
-
-class Weather {
-  final int? max;
-  final int? min;
-  final int? current;
-  final String? name;
-  final String? day;
-  final int? wind;
-  final int? humidity;
-  final int? uvIndex;
-  final String? image;
-  final String? time;
-  final String? location;
-  final int? feels_like;
-  final int? pressure;
-
-  Weather(
-      {this.max,
-      this.min,
-      this.name,
-      this.day,
-      this.wind,
-      this.humidity,
-      this.uvIndex,
-      this.image,
-      this.current,
-      this.time,
-      this.location,
-      this.feels_like,
-      this.pressure});
-}
+import 'package:weather_app/dataHelper.dart';
 
 Weather? currentTemp;
+List<Weather>? sevenDayWeather;
 String lat = "39.9255";
 String lon = "32.8662";
 String city = "Ankara";
@@ -46,22 +17,12 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  getData() {
-    currentTemp = Weather(
-        current: 10,
-        max: 10,
-        min: 10,
-        name: "Ankara",
-        day: "Monday",
-        wind: 10,
-        humidity: 10,
-        uvIndex: 20,
-        image: "assets/cloudy.png",
-        time: "10",
-        location: "Türkiye",
-        feels_like: 10,
-        pressure: 20);
-    setState(() {});
+  getData() async {
+    fetchData(lat, lon, city).then((value) {
+      currentTemp = value[0];
+      sevenDayWeather = value[3];
+      setState(() {});
+    });
   }
 
   @override
@@ -75,7 +36,9 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: currentTemp == null
-          ? const Center()
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
           : Column(
               children: [CurrentWeather(getData), const TodayWeather()],
             ),
@@ -92,7 +55,7 @@ class CurrentWeather extends StatefulWidget {
 
 class _CurrentWeatherState extends State<CurrentWeather> {
   var focusNode = FocusNode();
-  final cities = ["Ankara"];
+  final cities = ["İstanbul", "Ankara", "İzmir", "Bursa", "Alaska", "Grönland"];
 
   @override
   Widget build(BuildContext context) {
@@ -139,10 +102,11 @@ class _CurrentWeatherState extends State<CurrentWeather> {
                       isExpanded: true,
                       items: cities.map(buildMenuItem).toList(),
                       onChanged: (value) async {
-                        //Update city
-                        city = city;
-                        lat = lat;
-                        lon = lon;
+                        CityModel? temp = await fetchCity(value!);
+                        city = temp!.name!;
+                        lat = temp.lat!;
+                        lon = temp.lon!;
+                        setState(() {});
                         widget.updateData();
                         setState(() {});
                       },
@@ -241,7 +205,7 @@ class TodayWeather extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  //PUSH NAV HERE
+                  //PUSH 7 DAY WEATHER HERE
                 },
                 child: Row(
                   children: const [

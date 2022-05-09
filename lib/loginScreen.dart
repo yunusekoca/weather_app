@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather_app/homeScreen.dart';
 import 'package:weather_app/registerScreen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -11,6 +12,8 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
+  var emailController = TextEditingController();
+  var passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -37,6 +40,7 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 children: [
                   TextFormField(
+                    controller: emailController,
                     style: const TextStyle(color: Colors.black),
                     maxLines: 1,
                     decoration: InputDecoration(
@@ -51,6 +55,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   TextFormField(
+                    controller: passwordController,
                     style: const TextStyle(color: Colors.black),
                     maxLines: 1,
                     obscureText: true,
@@ -66,14 +71,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 20,
                   ),
                   ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (_formKey.currentState!.validate()) {
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const HomePage(),
-                          ),
-                        );
+                        try {
+                          UserCredential userCredential = await FirebaseAuth
+                              .instance
+                              .signInWithEmailAndPassword(
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const HomePage(),
+                            ),
+                          );
+                        } catch (error) {
+                          print(error);
+                        }
                       }
                     },
                     style: ElevatedButton.styleFrom(

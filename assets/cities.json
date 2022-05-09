@@ -1,0 +1,52 @@
+[
+    {
+        "name": "İstanbul",
+        "country_id": 1,
+        "country_name": "İstanbul",
+        "latitude": "41.015137",
+        "longitude": "28.979530"
+    },
+    {
+        "name": "Ankara",
+        "country_id": 2,
+        "country_name": "İstanbul",
+        "latitude": "39.925533",
+        "longitude": "32.866287"
+    },
+    {
+        "name": "İzmir",
+        "country_id": 3,
+        "country_name": "İstanbul",
+        "latitude": "38.423733",
+        "longitude": "27.142826"
+    },
+    {
+        "name": "Bursa",
+        "country_id": 4,
+        "country_name": "İstanbul",
+        "latitude": "40.193298",
+        "longitude": "29.074202"
+    },
+    {
+        "name": "Alaska",
+        "country_id": 5,
+        "country_name": "Alaska",
+        "latitude": "61.217381",
+        "longitude": "-149.863129"
+    },
+    {
+        "name": "Grönland",
+        "country_id": 6,
+        "country_name": "Grönland",
+        "latitude": "67.010323",
+        "longitude": "-50.712353"
+    },
+    {
+        "name": "Antarktika",
+        "country_id": 7,
+        "country_name": "Antarctica",
+        "latitude": "-76.299965",
+        "longitude": "-148.003021"
+    }
+    
+]
