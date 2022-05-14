@@ -86,7 +86,21 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           );
                         } catch (error) {
-                          print(error);
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              content: Text(
+                                error.toString(),
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, null),
+                                  child: const Text('Tamam'),
+                                ),
+                              ],
+                            ),
+                          );
                         }
                       }
                     },

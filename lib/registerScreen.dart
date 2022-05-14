@@ -91,14 +91,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                               builder: (context) => const LoginScreen(),
                             ),
                           );
-                        } on FirebaseAuthException catch (e) {
-                          if (e.code == 'weak-password') {
-                            print('The password provided is too weak.');
-                          } else if (e.code == 'email-already-in-use') {
-                            print('The account already exists for that email.');
-                          }
-                        } catch (e) {
-                          print(e);
+                        } on FirebaseAuthException catch (error) {
+                          showDialog<String>(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              content: Text(
+                                error.toString(),
+                                style: const TextStyle(color: Colors.black),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, null),
+                                  child: const Text('Tamam'),
+                                ),
+                              ],
+                            ),
+                          );
                         }
                       }
                     },

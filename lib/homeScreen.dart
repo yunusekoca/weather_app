@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 import 'package:weather_app/dataHelper.dart';
+import 'package:weather_app/detailScreen.dart';
+import 'package:weather_app/extraWeather.dart';
+import 'package:weather_app/aboutScreen.dart';
+import 'package:weather_app/loginScreen.dart';
 
 Weather? currentTemp;
 List<Weather>? sevenDayWeather;
@@ -34,6 +38,9 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: const NavigatonDrawer(
+        backgroundColor: Color.fromRGBO(157, 200, 245, 1),
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: currentTemp == null
           ? const Center(
@@ -77,7 +84,9 @@ class _CurrentWeatherState extends State<CurrentWeather> {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    Scaffold.of(context).openDrawer();
+                  },
                   child: const Icon(
                     Icons.menu,
                     color: Colors.white,
@@ -171,7 +180,7 @@ class _CurrentWeatherState extends State<CurrentWeather> {
             const SizedBox(
               height: 10,
             ),
-            //Informations here
+            ExtraWeather(currentTemp!)
           ],
         ),
       ),
@@ -205,7 +214,10 @@ class TodayWeather extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  //PUSH 7 DAY WEATHER HERE
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (BuildContext context) {
+                    return DetailScreen(sevenDayWeather!);
+                  }));
                 },
                 child: Row(
                   children: const [
@@ -225,6 +237,61 @@ class TodayWeather extends StatelessWidget {
                 ),
               )
             ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class NavigatonDrawer extends StatelessWidget {
+  // ignore: prefer_typing_uninitialized_variables
+  final backgroundColor;
+  const NavigatonDrawer({required this.backgroundColor, Key? key})
+      : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      backgroundColor: backgroundColor,
+      child: ListView(
+        children: [
+          const SizedBox(
+            height: 60.0,
+            child: DrawerHeader(
+              child: Center(
+                  child: Text('Seçenekler',
+                      style: TextStyle(color: Colors.white))),
+              margin: EdgeInsets.all(0.0),
+              padding: EdgeInsets.all(0.0),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.info, color: Colors.white),
+            title: const Text(
+              'Hakkında',
+              style: TextStyle(color: Colors.black),
+            ),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const AboutScreen(),
+                ),
+              );
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.logout, color: Colors.white),
+            title:
+                const Text('Çıkış Yap', style: TextStyle(color: Colors.black)),
+            onTap: () {
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
+            },
           ),
         ],
       ),
