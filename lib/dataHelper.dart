@@ -38,7 +38,7 @@ String appId = "b21fd1bc575153adabc43c2ea24e4571";
 
 Future<List> fetchData(String lat, String lon, String city) async {
   var url =
-      "https://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&lang=tr&units=metric&appid=$appId";
+      "http://api.openweathermap.org/data/2.5/onecall?lat=$lat&lon=$lon&lang=tr&units=metric&appid=$appId";
   var response = await http.get(Uri.parse(url));
   DateTime date = DateTime.now();
   if (response.statusCode == 200) {

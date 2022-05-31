@@ -46,7 +46,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCmkyewFsJMuwe6JdJi',
+    apiKey: 'AIzaSyCmkyewFsJMuwe6JdJi-T8i6rbAoCp_1Sw',
     appId: '1:1041745834412:ios:252f667436a11288a50a09',
     messagingSenderId: '1041745834412',
     projectId: 'weather-app-a6843',
@@ -71,14 +71,17 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'xxxxxxxxxxxxxxxxxxx',
-    appId: 'xxxxxxxxxxxxxxxxxxx',
-    messagingSenderId: 'xxxxxxxxxxxxxxxxxxx',
-    projectId: 'xxxxxxxxxxxxxxxxxxx',
-    databaseURL: 'xxxxxxxxxxxxxxxxxxx',
-    storageBucket: 'xxxxxxxxxxxxxxxxxxx',
-    androidClientId: 'xxxxxxxxxxxxxxxxxxx',
-    iosClientId: 'xxxxxxxxxxxxxxxxxxx',
-    iosBundleId: 'xxxxxxxxxxxxxxxxxxx',
+    apiKey: 'AIzaSyCmkyewFsJMuwe6JdJi-T8i6rbAoCp_1Sw',
+    appId: '1:1041745834412:ios:252f667436a11288a50a09',
+    messagingSenderId: '1041745834412',
+    projectId: 'weather-app-a6843',
+    databaseURL:
+        '1041745834412-lcsa1fb0oc67f28ki6jurpus0t280kb4.apps.googleusercontent.com',
+    storageBucket: 'weather-app-a6843.appspot.com',
+    androidClientId:
+        '1041745834412-lcsa1fb0oc67f28ki6jurpus0t280kb4.apps.googleusercontent.com',
+    iosClientId:
+        '1041745834412-lcsa1fb0oc67f28ki6jurpus0t280kb4.apps.googleusercontent.com',
+    iosBundleId: 'com.example.weatherApp',
   );
 }
